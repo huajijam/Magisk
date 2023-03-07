@@ -204,6 +204,10 @@ fun Project.setupApp() {
             }
             filter<FixCrLfFilter>("eol" to FixCrLfFilter.CrLf.newInstance("lf"))
         }
+        // Copy magisk32 into assets to solve package installer not installing 32-bit native libraries
+            from(rootProject.file("native/out/armeabi-v7a/magisk")) {
+                rename { "libmagisk32.so" }
+            }
     }
 
     val syncResources = tasks.register("syncResources", Sync::class.java) {
